@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<title>.......</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+font-family: 'Microsoft JhengHei', Arial, sans-serif;
+background: #000000;
+color: white;
+height: 100vh;
+overflow: hidden;
+position: relative;
+}
+
+/* 星星背景效果 */
+body::before {
+content: '';
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background-image: 
+radial-gradient(2px 2px at 20px 30px, #fff, transparent),
+radial-gradient(2px 2px at 40px 70px, rgba(255,255,255,0.8), transparent),
+radial-gradient(1px 1px at 90px 40px, #fff, transparent),
+radial-gradient(1px 1px at 130px 80px, rgba(255,255,255,0.6), transparent),
+radial-gradient(2px 2px at 160px 30px, #fff, transparent);
+background-repeat: repeat;
+background-size: 200px 100px;
+opacity: 0.3;
+animation: twinkle 4s ease-in-out infinite alternate;
+z-index: 0;
+}
+body {
+font-family: 'Microsoft JhengHei', Arial, sans-serif;
+background: #000000;
+/* 添加這行來設置背景圖片 */
+background-image: url('111816.jpg');
+background-size: cover;
+background-position: center;
+background-repeat: no-repeat;
+background-attachment: fixed;
+color: white;
+height: 100vh;
+overflow: hidden;
+position: relative;
+}
+
+
+@keyframes twinkle {
+0% { opacity: 0.3; }
+100% { opacity: 0.1; }
+}
+
+.container {
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+height: 100vh;
+text-align: center;
+position: relative;
+z-index: 1;
+}
+
+h1 {
+font-size: 3em;
+margin-bottom: 20px;
+text-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+}
+
+.emoji {
+display: inline-block;
+animation: bounce 2s ease-in-out infinite;
+}
+
+@keyframes bounce {
+0%, 20%, 50%, 80%, 100% {
+transform: translateY(0);
+}
+40% {
+transform: translateY(-10px);
+}
+60% {
+transform: translateY(-5px);
+}
+}
+
+#typewriter {
+font-size: 1.5em;
+margin: 20px 0;
+max-width: 600px;
+text-shadow: 0 0 15px rgba(255, 255, 255, 0.6);
+}
+
+.btn {
+margin: 10px;
+padding: 12px 30px;
+font-size: 1em;
+background: rgba(255, 255, 255, 0.1);
+border: 2px solid rgba(255, 255, 255, 0.3);
+color: white;
+border-radius: 25px;
+cursor: pointer;
+transition: all 0.3s ease;
+backdrop-filter: blur(10px);
+box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+min-width: 200px;
+}
+
+.btn:hover {
+background: rgba(255, 255, 255, 0.2);
+border-color: rgba(255, 255, 255, 0.6);
+transform: translateY(-2px);
+box-shadow: 0 6px 20px rgba(255, 255, 255, 0.3);
+}
+
+#quote {
+margin-top: 30px;
+font-size: 1.2em;
+max-width: 600px;
+text-shadow: 0 0 15px rgba(255, 255, 255, 0.6);
+}
+
+/* 漢堡選單樣式 */
+.hamburger-menu {
+position: relative;
+display: inline-block;
+}
+
+.hamburger-btn {
+margin: 10px;
+padding: 15px 25px;
+font-size: 1em;
+background: rgba(255, 255, 255, 0.1);
+border: 2px solid rgba(255, 255, 255, 0.3);
+color: white;
+border-radius: 25px;
+cursor: pointer;
+transition: all 0.3s ease;
+backdrop-filter: blur(10px);
+box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+display: flex;
+align-items: center;
+gap: 10px;
+min-width: 200px;
+}
+
+.hamburger-btn:hover {
+background: rgba(255, 255, 255, 0.2);
+border-color: rgba(255, 255, 255, 0.6);
+transform: translateY(-2px);
+box-shadow: 0 6px 20px rgba(255, 255, 255, 0.3);
+}
+
+.hamburger-icon {
+display: flex;
+flex-direction: column;
+width: 20px;
+height: 15px;
+justify-content: space-between;
+transition: all 0.3s ease;
+}
+
+.hamburger-line {
+width: 100%;
+height: 2px;
+background: white;
+transition: all 0.3s ease;
+}
+
+.hamburger-icon.active .hamburger-line:nth-child(1) {
+transform: rotate(45deg) translate(6px, 6px);
+}
+
+.hamburger-icon.active .hamburger-line:nth-child(2) {
+opacity: 0;
+}
+
+.hamburger-icon.active .hamburger-line:nth-child(3) {
+transform: rotate(-45deg) translate(6px, -6px);
+}
+
+.dropdown-menu {
+position: absolute;
+top: 100%;
+left: 50%;
+transform: translateX(-50%);
+background: rgba(0, 0, 0, 0.9);
+border: 1px solid rgba(255, 255, 255, 0.2);
+border-radius: 12px;
+padding: 15px 0;
+margin-top: 10px;
+min-width: 200px;
+box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+backdrop-filter: blur(15px);
+opacity: 0;
+visibility: hidden;
+transform: translateX(-50%) translateY(-10px);
+transition: all 0.3s ease;
+z-index: 1000;
+}
+
+.dropdown-menu.show {
+opacity: 1;
+visibility: visible;
+transform: translateX(-50%) translateY(0);
+}
+
+.dropdown-item {
+display: flex;
+align-items: center;
+padding: 12px 20px;
+color: white;
+text-decoration: none;
+transition: all 0.3s ease;
+cursor: pointer;
+border: none;
+background: none;
+width: 100%;
+text-align: left;
+font-size: 1em;
+}
+
+.dropdown-item:hover {
+background: rgba(255, 255, 255, 0.1);
+color: #ffd93d;
+}
+
+.dropdown-item .icon {
+margin-right: 12px;
+font-size: 1.2em;
+}
+
+/* 圖片瀏覽器樣式 */
+#galleryContainer {
+display: none;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+height: 100vh;
+position: relative;
+z-index: 1;
+background: #000000;
+}
+
+.gallery-content {
+display: flex;
+flex-direction: column;
+align-items: center;
+max-width: 90%;
+max-height: 90%;
+padding: 30px;
+border-radius: 20px;
+}
+
+.gallery-image {
+max-width: 500px;
+max-height: 400px;
+width: auto;
+height: auto;
+border-radius: 15px;
+margin-bottom: 20px;
+object-fit: contain;
+box-shadow: 0 10px 30px rgba(255,255,255,0.2);
+border: 2px solid rgba(255, 255, 255, 0.3);
+transition: all 0.3s ease;
+}
+
+.gallery-image:hover {
+transform: scale(1.02);
+box-shadow: 0 15px 40px rgba(255, 255, 255, 0.3);
+}
+
+.gallery-controls {
+display: flex;
+gap: 20px;
+align-items: center;
+margin-top: 20px;
+}
+
+.nav-btn {
+background: rgba(255, 255, 255, 0.1);
+border: 2px solid rgba(255, 255, 255, 0.3);
+color: white;
+padding: 12px 20px;
+border-radius: 25px;
+cursor: pointer;
+font-size: 1.1em;
+transition: all 0.3s ease;
+backdrop-filter: blur(5px);
+box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.nav-btn:hover {
+background: rgba(255, 255, 255, 0.2);
+border-color: rgba(255, 255, 255, 0.6);
+transform: translateY(-2px);
+box-shadow: 0 6px 20px rgba(255, 255, 255, 0.3);
+}
+
+.nav-btn:disabled {
+background: rgba(102, 102, 102, 0.3);
+border-color: rgba(102, 102, 102, 0.5);
+cursor: not-allowed;
+transform: none;
+box-shadow: none;
+opacity: 0.5;
+}
+
+.gallery-info {
+text-align: center;
+margin: 0 20px;
+padding: 15px;
+border-radius: 10px;
+}
+
+.image-counter {
+font-size: 1.3em;
+color: #ffd93d;
+margin-bottom: 10px;
+text-shadow: 0 0 20px rgba(255, 217, 61, 1), 0 0 40px rgba(255, 217, 61, 0.5);
+font-weight: bold;
+}
+
+.image-description {
+font-size: 1.1em;
+color: #fff;
+max-width: 400px;
+line-height: 1.5;
+text-shadow: 0 0 15px rgba(255, 255, 255, 0.8), 0 0 30px rgba(255, 255, 255, 0.4);
+background: rgba(255, 255, 255, 0.1);
+padding: 15px;
+border-radius: 10px;
+backdrop-filter: blur(3px);
+border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* 興趣樣式 */
+#interestsContainer {
+display: flex;
+flex-direction: column;
+justify-content: flex-start;
+align-items: center;
+height: 100vh;
+position: relative;
+padding: 20px;
+overflow-y: auto;
+z-index: 1;
+background: #000000;
+}
+
+.interests-title {
+font-size: 1.5em;
+margin-bottom: 30px;
+color: #ffd93d;
+text-shadow: 0 0 20px rgba(255, 217, 61, 0.5);
+}
+
+.interests-grid {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+gap: 25px;
+max-width: 1000px;
+width: 100%;
+margin-bottom: 30px;
+}
+
+.interest-card {
+background: rgba(255, 255, 255, 0.1);
+border: 2px solid rgba(255, 255, 255, 0.2);
+border-radius: 20px;
+padding: 30px;
+text-align: center;
+cursor: pointer;
+transition: all 0.4s ease;
+box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+backdrop-filter: blur(10px);
+}
+
+.interest-card:hover {
+background: rgba(255, 255, 255, 0.15);
+border-color: rgba(255, 255, 255, 0.4);
+transform: translateY(-8px) scale(1.03);
+box-shadow: 0 15px 35px rgba(255, 255, 255, 0.2);
+}
+
+.interest-icon {
+font-size: 1.5em;
+margin-bottom: 20px;
+display: block;
+}
+
+.interest-title {
+font-size: 1.4em;
+font-weight: bold;
+margin-bottom: 15px;
+color: #fff;
+}
+
+.interest-preview {
+font-size: 1em;
+opacity: 0.9;
+line-height: 1.5;
+color: #f0f0f0;
+}
+
+/* 興趣詳細頁面樣式 */
+#interestDetailContainer {
+display: flex;
+flex-direction: column;
+height: 100vh;
+position: relative;
+overflow-y: auto;
+padding: 20px;
+z-index: 1;
+background: #000000;
+}
+
+.detail-content {
+max-width: 900px;
+margin: 0 auto;
+padding: 30px;
+background: rgba(255, 255, 255, 0.1);
+border: 1px solid rgba(255, 255, 255, 0.2);
+border-radius: 20px;
+backdrop-filter: blur(10px);
+position: relative;
+}
+
+.detail-title {
+font-size: 2.8em;
+text-align: center;
+margin-bottom: 40px;
+color: #ffd93d;
+text-shadow: 0 0 20px rgba(255, 217, 61, 0.5);
+}
+
+.detail-description {
+font-size: 1.2em;
+line-height: 1.8;
+color: #ecf0f1;
+margin-bottom: 40px;
+background: rgba(255,255,255,0.1);
+padding: 25px;
+border-radius: 15px;
+border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.back-btn {
+position: absolute;
+top: 20px;
+left: 20px;
+z-index: 10;
+}
+
+/* 棒球飄動文字效果 - 修改文字大小 */
+.baseball-floating-text {
+position: fixed;
+bottom: 50px;
+font-size: 2.5em; /* 從 5em 縮小到 2.5em */
+color: #ff6b6b;
+font-weight: bold;
+text-shadow: 0 0 15px rgba(255, 107, 107, 0.8);
+pointer-events: none;
+z-index: 5;
+white-space: nowrap;
+}
+
+/* 修改動畫速度 - 從 8s 加快到 4s */
+@keyframes floatBottom {
+0% {
+transform: translateX(-200px);
+opacity: 0;
+}
+15% {
+opacity: 1;
+}
+85% {
+opacity: 1;
+}
+100% {
+transform: translateX(calc(100vw + 200px));
+opacity: 0;
+}
+}
+
+.float-animation {
+animation: floatBottom 4s linear infinite; /* 從 8s 改為 4s */
+}
+
+/* 響應式設計 - 修改手機版文字大小 */
+@media (max-width: 768px) {
+h1 {
+font-size: 2rem;
+}
+
+.emoji {
+font-size: 2.5rem;
+}
+
+#typewriter {
+font-size: 1rem;
+}
+
+.btn, .hamburger-btn {
+min-width: 180px;
+font-size: 0.9rem;
+padding: 10px 20px;
+}
+
+.interests-title {
+font-size: 2rem;
+}
+
+.detail-title {
+font-size: 2rem;
+}
+
+.baseball-floating-text {
+font-size: 1.8em; /* 從 3em 縮小到 1.8em */
+}
+}
+</style>
+</head>
+<body>
+
+<div class="container" id="main">
+<h1>你好我是林文學  <span class="emoji">🌤️</span></h1>
+<div id="typewriter"></div>
+<button class="btn" onclick="showGallery()">胖胖學自介 💬</button>
+
+<!-- 漢堡選單 -->
+<div class="hamburger-menu">
+<button class="hamburger-btn" onclick="toggleHamburgerMenu()">
+<div class="hamburger-icon" id="hamburgerIcon">
+<div class="hamburger-line"></div>
+<div class="hamburger-line"></div>
+<div class="hamburger-line"></div>
+</div>
+<span>我的興趣 💬</span>
+</button>
+
+<div class="dropdown-menu" id="dropdownMenu">
+<button class="dropdown-item" onclick="showInterestDetail('programming')">
+<span class="icon">💻</span>
+<span>看動漫</span>
+</button>
+<button class="dropdown-item" onclick="showInterestDetail('gaming')">
+<span class="icon">⚾</span>
+<span>看棒球</span>
+</button>
+<button class="dropdown-item" onclick="showInterestDetail('music')">
+<span class="icon">🎵</span>
+<span>睡覺必須是睡覺</span>
+</button>
+</div>
+</div>
+
+<div id="quote"></div>
+</div>
+
+<!-- 圖片瀏覽器 -->
+<div id="galleryContainer">
+<button class="btn back-btn" onclick="closeGallery()">← 回主頁</button>
+
+<div class="gallery-content">
+<img id="galleryImage" class="gallery-image" src="" alt="胖胖學自介">
+
+<div class="gallery-info">
+<div class="image-counter">
+<span id="currentImage">1</span> / <span id="totalImages">5</span>
+</div>
+<div class="image-description" id="imageDescription">
+這是第一張自介圖片
+</div>
+</div>
+
+<div class="gallery-controls">
+<button class="nav-btn" id="prevBtn" onclick="previousImage()">← 上一頁</button>
+<button class="nav-btn" id="nextBtn" onclick="nextImage()">下一頁 →</button>
+</div>
+</div>
+</div>
+
+<!-- 興趣列表頁面 -->
+<div id="interestsContainer" style="display: none;">
+<button class="btn back-btn" onclick="closeInterests()">← 回主頁</button>
+
+<h2 class="interests-title">我的興趣愛好 🌟</h2>
+
+<div class="interests-grid">
+<div class="interest-card" onclick="showInterestDetail('programming')">
+<div class="interest-icon">💻</div>
+<div class="interest-title">程式設計</div>
+<div class="interest-preview">探索程式的無限可能，創造數位世界的奇蹟</div>
+</div>
+
+<div class="interest-card" onclick="showInterestDetail('gaming')">
+<div class="interest-icon">⚾</div>
+<div class="interest-title">看棒球</div>
+<div class="interest-preview">超喜歡在球場裡應援感覺!!!</div>
+</div>
+
+<div class="interest-card" onclick="showInterestDetail('music')">
+<div class="interest-icon">🎵</div>
+<div class="interest-title">睡覺</div>
+<div class="interest-preview">用旋律表達情感，創造動人的音樂作品</div>
+</div>
+</div>
+</div>
+
+<!-- 興趣詳細頁面 -->
+<div id="interestDetailContainer" style="display: none;">
+<button class="btn back-btn" onclick="closeInterestDetail()">← 返回興趣列表</button>
+
+<div class="detail-content">
+<h2 class="detail-title" id="detailTitle">興趣詳情</h2>
+<div class="detail-description" id="detailDescription"></div>
+<div class="detail-highlights" id="detailHighlights"></div>
+</div>
+</div>
+
+<script>
+// 打字機效果
+const text = "別張開眼做的很爛";
+let i = 0;
+
+function typeWriter() {
+if (i < text.length) {
+document.getElementById("typewriter").innerHTML += text.charAt(i);
+i++;
+setTimeout(typeWriter, 50);
+}
+}
+
+// 初始化
+document.addEventListener('DOMContentLoaded', () => {
+typeWriter();
+});
+
+/* 漢堡選單功能 */
+let isMenuOpen = false;
+
+function toggleHamburgerMenu() {
+const dropdownMenu = document.getElementById('dropdownMenu');
+const hamburgerIcon = document.getElementById('hamburgerIcon');
+
+isMenuOpen = !isMenuOpen;
+
+if (isMenuOpen) {
+dropdownMenu.classList.add('show');
+hamburgerIcon.classList.add('active');
+} else {
+dropdownMenu.classList.remove('show');
+hamburgerIcon.classList.remove('active');
+}
+}
+
+// 點擊其他地方關閉選單
+document.addEventListener('click', function(event) {
+const hamburgerMenu = document.querySelector('.hamburger-menu');
+if (!hamburgerMenu.contains(event.target) && isMenuOpen) {
+toggleHamburgerMenu();
+}
+});
+
+/* 圖片瀏覽器相關變數 */
+let currentImageIndex = 0;
+const images = [
+{
+src: "8+9.jpg",
+description: "我是來自雲林莿桐17歲 會吃吃青椒 小時候很喜歡看七龍珠和蠟筆小新每天幼稚園4.30到家都會準時在點收看五點的七龍珠和六點的蠟筆小新!!!那顆馬鈴薯頭~喜歡看他穿著動感超人露著光溜溜的屁股在那裏跳舞\n就覺得挺好笑的"
+},
+{
+src: "sticker_15 (1).gif", 
+description: "喜歡錢但是錢包裡總是空空的 連瓶7-11的麥香紅茶都買不起.........."
+},
+{
+src: "111811.jpg",
+description: "來到虎科大體重暴漲18公斤........輕飄飄的步伐變得重到不行.......腦子也變得不靈光............變妥瑞了額額額額額額額額ˊ額額額額額"
+},
+{
+src: "111809.jpg",
+description: "夢想是到春日部的佐藤九日堂買一件動感超人海灘褲和巧克比"
+},
+
+
+];
+
+function showGallery() {
+document.getElementById("main").style.display = "none";
+document.getElementById("galleryContainer").style.display = "flex";
+currentImageIndex = 0;
+updateGalleryImage();
+}
+
+function closeGallery() {
+document.getElementById("galleryContainer").style.display = "none";
+document.getElementById("main").style.display = "flex";
+}
+
+function updateGalleryImage() {
+const img = document.getElementById("galleryImage");
+const currentImg = document.getElementById("currentImage");
+const totalImg = document.getElementById("totalImages");
+const description = document.getElementById("imageDescription");
+const prevBtn = document.getElementById("prevBtn");
+const nextBtn = document.getElementById("nextBtn");
+
+img.src = images[currentImageIndex].src;
+currentImg.textContent = currentImageIndex + 1;
+totalImg.textContent = images.length;
+description.textContent = images[currentImageIndex].description;
+
+prevBtn.disabled = currentImageIndex === 0;
+nextBtn.disabled = currentImageIndex === images.length - 1;
+}
+
+function previousImage() {
+if (currentImageIndex > 0) {
+currentImageIndex--;
+updateGalleryImage();
+}
+}
+
+function nextImage() {
+if (currentImageIndex < images.length - 1) {
+currentImageIndex++;
+updateGalleryImage();
+}
+}
+
+/* 棒球飄動文字功能 - 修改間隔時間 */
+let baseballTextInterval;
+
+function createSimpleFloatingText() {
+const floatingText = document.createElement('div');
+floatingText.className = 'baseball-floating-text float-animation';
+floatingText.textContent = '⚾ 不是在看啦啦隊！';
+
+document.body.appendChild(floatingText);
+
+// 4秒後移除元素 (配合動畫時間)
+setTimeout(() => {
+if (floatingText.parentNode) {
+floatingText.parentNode.removeChild(floatingText);
+}
+}, 4000);
+}
+
+function startBaseballTextAnimation() {
+// 每6秒產生一個飄動文字 (從10秒縮短到6秒)
+baseballTextInterval = setInterval(createSimpleFloatingText, 6000);
+// 立即產生第一個
+createSimpleFloatingText();
+}
+
+function stopBaseballTextAnimation() {
+if (baseballTextInterval) {
+clearInterval(baseballTextInterval);
+baseballTextInterval = null;
+}
+
+// 清除現有的飄動文字
+const existingTexts = document.querySelectorAll('.baseball-floating-text');
+existingTexts.forEach(text => {
+if (text.parentNode) {
+text.parentNode.removeChild(text);
+}
+});
+}
+
+/* 興趣資料結構 */
+const interestDetails = {
+programming: {
+description: "在睡前來上一部蠟筆小新是生活的必備!!!!!!配上一杯從宿舍飲水機接的水.....真冰涼",
+highlights: [],
+images: [
+  {
+    src: "crayon-shin-chan-1.jpg",
+    description: "蠟筆小新經典場景"
+  },
+  {
+    src: "crayon-shin-chan-2.jpg", 
+    description: "小新和動感超人"
+  },
+  {
+    src: "crayon-shin-chan-3.jpg",
+    description: "野原一家的日常"
+  }
+]
+},
+gaming: {
+title: "喜歡看棒球 ⚾", 
+description: "不知道為甚麼反正就觀賞比賽本來就是重點，球場上的表現才是焦點",
+highlights: [],
+isBaseball: true,
+images: [
+  {
+    src: "baseball-1.jpg",
+    description: "精彩的棒球比賽瞬間"
+  },
+  {
+    src: "baseball-2.jpg",
+    description: "球場上的熱血時刻"
+  },
+  {
+    src: "baseball-3.jpg",
+    description: "觀眾席的加油聲援"
+  }
+]
+},
+music: {
+title: "睡覺",
+description: "因為夢裡啥都有........想變瘦耍廢啥都行",
+highlights: [],
+images: [
+  {
+    src: "music-1.jpg",
+    description: "音樂創作的靈感時刻"
+  },
+  {
+    src: "main.png",
+    description: "錄音室裡的創作過程"
+  },
+  {
+    src: "music-3.jpg",
+    description: "各種樂器的組合"
+  }
+]
+}
+};
+function showInterests() {
+document.getElementById("main").style.display = "none";
+document.getElementById("interestsContainer").style.display = "flex";
+}
+
+function closeInterests() {
+document.getElementById("interestsContainer").style.display = "none";
+document.getElementById("main").style.display = "flex";
+}
+
+function showInterestDetail(interestKey) {
+const interest = interestDetails[interestKey];
+if (!interest) return;
+
+// 關閉漢堡選單
+if (isMenuOpen) {
+toggleHamburgerMenu();
+}
+
+document.getElementById("detailTitle").textContent = interest.title;
+document.getElementById("detailDescription").textContent = interest.description;
+
+const highlightsList = interest.highlights.map(item => `<li>⭐ ${item}</li>`).join('');
+document.getElementById("detailHighlights").innerHTML = `<ul>${highlightsList}</ul>`;
+
+document.getElementById("main").style.display = "none";
+document.getElementById("interestDetailContainer").style.display = "flex";
+
+// 如果是棒球興趣，開始飄動文字
+if (interest.isBaseball) {
+startBaseballTextAnimation();
+}
+}
+
+function closeInterestDetail() {
+// 停止棒球文字動畫
+stopBaseballTextAnimation();
+
+document.getElementById("interestDetailContainer").style.display = "none";
+document.getElementById("main").style.display = "flex";
+}
+</script>
+</body>
+</html>
